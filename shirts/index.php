@@ -1,10 +1,10 @@
-<?php include("inc/products.php"); ?>
 <?php 
 $pageTitle = "Mike's Full Catalog of Shirts";
 $section = "shirts";
 
-include('inc/config.php');
-include(ROOT_PATH . "inc/header.php"); 
+require_once('../inc/config.php');
+require_once(ROOT_PATH . "inc/header.php"); 
+include(ROOT_PATH . "inc/products.php");
 ?>
 		<div class="section shirts page">
 
