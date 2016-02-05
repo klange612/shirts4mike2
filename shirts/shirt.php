@@ -9,7 +9,7 @@ if (isset($_GET["id"])) {
 	}
 }
 if (!isset($product)) {
-	header("Location: " . BASE_URL . "shirts.php");
+	header("Location: " . BASE_URL . "shirts/");
 	exit();
 }
 
