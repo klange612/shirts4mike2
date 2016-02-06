@@ -1,11 +1,11 @@
 <?php
 
-function get_list_view_html($product_id, $product) {
+function get_list_view_html($product) {
     
     $output = "";
 
     $output = $output . "<li>";
-    $output = $output . '<a href="' . BASE_URL . 'shirts/shirt.php?id=' . $product_id . '">';
+    $output = $output . '<a href="' . BASE_URL . 'shirts/shirt.php?id=' . $product["sku"] . '">';
     $output = $output . '<img src="' . BASE_URL . $product["img"] . '" alt="' . $product["name"] . '">';
     $output = $output . "<p>View Details</p>";
     $output = $output . "</a>";
@@ -71,5 +71,9 @@ $products[108] = array(
     "paypal" => "JMFK7P7VEHS44",
     "sizes" => array("Large","X-Large")
 );
+
+foreach ($products as $product_id => $product) {
+	$products[$product_id]["sku"] = $product_id;
+}
 
 ?>

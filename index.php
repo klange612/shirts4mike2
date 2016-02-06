@@ -34,10 +34,10 @@ include(ROOT_PATH . "inc/header.php");
 						$total_products = count($products);
 						$position = 0;
 						$list_view_html = "";
-						foreach($products as $product_id => $product) { 
+						foreach($products as $product) { 
 							$position = $position + 1;
 							if ($total_products - $position < 4) {
-								$list_view_html = get_list_view_html($product_id,$product) . $list_view_html;
+								$list_view_html = get_list_view_html($product) . $list_view_html;
 							}
 						}
 						echo $list_view_html;
