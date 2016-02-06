@@ -5,6 +5,8 @@ $section = "shirts";
 require_once('../inc/config.php');
 require_once(ROOT_PATH . "inc/header.php"); 
 include(ROOT_PATH . "inc/products.php");
+$products = get_products_all();
+
 ?>
 		<div class="section shirts page">
 

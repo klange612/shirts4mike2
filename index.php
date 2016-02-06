@@ -27,19 +27,13 @@ include(ROOT_PATH . "inc/header.php");
 
 				<h2>Mike&rsquo;s Latest Shirts</h2>
 
-				<?php include(ROOT_PATH . "inc/products.php"); ?>
+				<?php 
+					include(ROOT_PATH . "inc/products.php"); 
+					$products = get_products_all();
+				?>
 				<ul class="products">
 					<?php 
-
-						$total_products = count($products);
-						$position = 0;
-						$list_view_html = "";
-						foreach($products as $product) { 
-							$position = $position + 1;
-							if ($total_products - $position < 4) {
-								$list_view_html = get_list_view_html($product) . $list_view_html;
-							}
-						}
+						$list_view_html = get_products_recent($products);
 						echo $list_view_html;
 					?>								
 				</ul>
