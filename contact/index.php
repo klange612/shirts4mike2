@@ -5,34 +5,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars(trim($_POST["name"]));
     $email = htmlspecialchars(trim($_POST["email"]));
     $message = htmlspecialchars(trim($_POST["message"]));
- 
- 
- // comment to check commits
- 
-
+  
+    $error_message = Array();
+//     $error_message[] = "has a value";
+//     var_dump($error_message);
+//     if (!isset($error_message)) {
+//     	echo "error !isset";
+//     }
+    
     if ($name == "" OR $email == "" OR $message == "") {
-        $error_message = "You must specify a value for name, email address, and message.";
+        $error_message[] = "You must specify a value for name, email address, and message.";
     }
 
-    if (!isset($error_message)) {
 	    foreach( $_POST as $value ){
 	        if( stripos($value,'Content-Type:') !== FALSE ){
-	            $error_message = "There was a problem with the information you entered.";    
+	            $error_message[] = "There was a problem with the information you entered.";    
 	        }
 	    }
-    }
-	    if (!isset($error_message) && $_POST["address"] != "") {
-	        $error_message = "Your form submission has an error.";
+
+	    if ($_POST["address"] != "") {
+	        $error_message[] = "Your form submission has an error in address.";
 	    }
 
     require_once(ROOT_PATH . "inc/phpmailer/class.phpmailer.php");
     $mail = new PHPMailer();
 
-    if (!isset($error_message) && !$mail->ValidateAddress($email)){
-        $error_message = "You must specify a valid email address.";
+    if (!$mail->ValidateAddress($email)){
+        $error_message[] = "You must specify a valid email address.";
     }
 
-    if (!isset($error_message)) {
+    if (empty($error_message)) {
 	    $email_body = "";
 	    $email_body = $email_body . "Name: " . $name . "<br>";
 	    $email_body = $email_body . "Email: " . $email . "<br>";
@@ -48,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	    	header("Location: " . BASE_URL . "contact?status=thanks");
 	    	exit;
 	    } else {
-	      $error_message = "There was a problem sending the email: " . $mail->ErrorInfo;
+	      $error_message[] = "There was a problem sending the email: " . $mail->ErrorInfo;
 	    }
     }
 }
@@ -66,10 +68,14 @@ include(ROOT_PATH . 'inc/header.php'); ?>
                 <p>Thanks for the email! I&rsquo;ll be in touch shortly!</p>
             <?php } else { ?>
 
-				<?php  if (!isset($error_message)) { 
+				<?php  if (empty($error_message)) { 
                 	echo "<p>I&rsquo;d love to hear from you! Complete the form to send me an email.</p>";
 				} else {
-					echo "<p class=message>" . $error_message . "</p>"; 
+					echo "<p class=message>";
+					foreach($error_message as $error) {
+						echo $error . "</br>";	
+					}
+					echo "</p>"; 
 					} ?>
 				
                 <form method="post" action="<?php echo BASE_URL; ?>contact/">
