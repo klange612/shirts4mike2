@@ -718,6 +718,7 @@ form input[type="submit"] {
     vertical-align: top;
     padding: 3px;
 }
+.header .search form input[type="submit"],
 .search form input[type="submit"] {
     width: auto;
     vertical-align: top;    

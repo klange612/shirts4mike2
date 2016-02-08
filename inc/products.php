@@ -12,7 +12,7 @@ function get_products_search ($s) {
 	$results = Array();
 	$all = get_products_all();
 	foreach ($all as $product) {
-		if (stripos($product['name'], $s) !== false) {
+		if (stripos($product['name'], $s) !== false || $product['sku'] == $s) {
 				$results[] = $product;	
 		}
 	}

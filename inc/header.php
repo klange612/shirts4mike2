@@ -19,8 +19,16 @@
 				<li class="search <?php if ($section == "search") { echo "on"; } ?>"><a href="<?php echo BASE_URL; ?>search/">Search</a></li>
 				<li class="about <?php if ($section == "about") { echo "on"; } ?>"><a href="<?php echo BASE_URL; ?>about/">About</a></li>
 				<li class="cart"><a target="paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_cart&amp;business=Q6NFNPFRBWR8S&amp;display=1">Shopping Cart</a></li>
+		<?php if ($section != "search") { ?>
+				<div class="shirts search page">
+					<form method="get" action=<?php echo '"' . BASE_URL . 'search/"'?>>
+						<input type="text" name="s" value=<?php if (isset($search_term)) { echo htmlspecialchars($search_term); } ?>>
+						<input type="submit" value="Go">
+					</form>
+				</div>
+				</div>
+		<?php } ?>
 			</ul>
-
 		</div>
 
 	</div>

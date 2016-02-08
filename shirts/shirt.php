@@ -4,7 +4,11 @@ require_once(ROOT_PATH . "inc/products.php");
 $products = get_products_all();
 
 if (isset($_GET["id"])) {
-	$product = get_product($_GET["id"]);
+	if (get_product($_GET["id"])) {
+		$product = get_product($_GET["id"]);
+	} else {
+		echo "No shirt found";
+	}
 }
 if (!isset($product)) {
 	header("Location: " . BASE_URL . "shirts/");
