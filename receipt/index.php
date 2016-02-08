@@ -2,7 +2,7 @@
 $pageTitle = "Thank you for your order!";
 $section = "none";
 
-include("../inc/config.php");
+require_once('../inc/config.php');
 include(ROOT_PATH . "inc/header.php"); ?>
 
 	<div class="section page">

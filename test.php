@@ -1,10 +1,14 @@
 <?php
-include("inc/products.php");
+// include("inc/products.php");
 
-foreach ($products as $product_id => $prod) {
-	var_dump($product_id);
-	echo "</br> data ";
-//	echo $prod["name"];
-	var_dump($prod);
-	echo "</br>";
-}
+// foreach ($products as $product_id => $prod) {
+// 	var_dump($product_id);
+// 	echo "</br> data ";
+// //	echo $prod["name"];
+// 	var_dump($prod);
+// 	echo "</br>";
+// }
+
+$check1 = false;
+
+if ($check1 !== false) { echo "True"; }

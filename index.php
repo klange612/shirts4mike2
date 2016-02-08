@@ -2,7 +2,7 @@
 $pageTitle = "Unique T-shirts designed by a frog";
 $section = "home";
 
-include("inc/config.php");
+require_once("inc/config.php");
 include(ROOT_PATH . "inc/header.php"); 
 ?>
 
