@@ -8,6 +8,26 @@ function get_product($product_id) {
 	return $product;
 }
 
+function get_products_count() {
+	return count(get_products_all());
+}
+function get_products_pages() {
+	return ceil(get_products_count()/PROD_DISPLAY);
+// 	$total_shirts = get_products_count();
+// 	if ($total_shirts % PROD_DISPLAY == 0) {
+// 		return $total_shirts/PROD_DISPLAY;
+// 	} else {
+// 		return $total_shirts/PROD_DISPLAY + 1;
+// 	}
+}
+
+function get_products_subset($page) {
+	$total_shirts = get_products_count();
+	$products = get_products_all();
+	$begin = (($page - 1) * PROD_DISPLAY);
+	return array_slice($products, $begin, PROD_DISPLAY);
+}
+
 function get_products_search ($s) {
 	$results = Array();
 	$all = get_products_all();
