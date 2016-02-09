@@ -114,14 +114,14 @@ function get_products_all() {
     	"name" => "Mike the Frog Shirt, Black",
         "img" => "img/shirts/shirt-102.jpg",
         "price" => 20,
-        "paypal" => "SXKPTHN2EES3J",
+        "paypal" => "L7LP5BQCBXGGJ",
         "sizes" => array("Small","Medium","Large","X-Large")
     );
     $products[103] = array(
         "name" => "Mike the Frog Shirt, Blue",
         "img" => "img/shirts/shirt-103.jpg",    
         "price" => 20,
-        "paypal" => "7T8LK5WXT5Q9J",
+        "paypal" => "UWQC93FQRTUS2",
         "sizes" => array("Small","Medium","Large","X-Large")
     );
     $products[104] = array(
