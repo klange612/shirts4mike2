@@ -1,5 +1,9 @@
 <?php
-
+/*
+ * get an individual product with the id provided
+ * @param	int		$product_id		the number of the product to search for.  array key value.
+ * @return	array	$product		the product that has the matching key from product_id
+ */
 function get_product($product_id) {
 	$products = get_products_all();	
 	if (isset($products[$product_id])) {
@@ -7,10 +11,19 @@ function get_product($product_id) {
 	}
 	return $product;
 }
-
+/*
+ * Get the count/total # of items in the product catalog
+ * @param	none
+ * @return	int		count of products in the catalog
+ */
 function get_products_count() {
 	return count(get_products_all());
 }
+/*
+ * determines the number of pages our pagination will have
+ * @param	none
+ * @return	int		a ceilng value, number always rounded up, of the # of pages we'll have
+ */
 function get_products_pages() {
 	return ceil(get_products_count()/PROD_DISPLAY);
 // 	$total_shirts = get_products_count();
@@ -20,14 +33,23 @@ function get_products_pages() {
 // 		return $total_shirts/PROD_DISPLAY + 1;
 // 	}
 }
-
+/*
+ * Gets a subset of the product catalog items.  the subset is the number of items to be 
+ * displayed to the shirt pagination based on what is set in config.php PROD_DISPLAY
+ * @param	int		$page	the page # we are on, so get the list for that page
+ * @return	array			array of the # products that match PROD_DISPLAY quantity
+ */
 function get_products_subset($page) {
 	$total_shirts = get_products_count();
 	$products = get_products_all();
 	$begin = (($page - 1) * PROD_DISPLAY);
 	return array_slice($products, $begin, PROD_DISPLAY);
 }
-
+/*
+ * Search a product from prodcuts name item for a search term $s
+ * @param	string	the search term
+ * @return	array	the array of all the products who's name matches the search term
+ */
 function get_products_search ($s) {
 	$results = Array();
 	$all = get_products_all();
@@ -38,7 +60,11 @@ function get_products_search ($s) {
 	}
 	return $results;
 }
-
+/*
+ * Gets the 4 most recent products in the product catalog
+ * @param	none
+ * @return	array	of the 4 most recent products
+ */
 function get_products_recent() {
 	$all = get_products_all();
 	$total_products = count($all);
@@ -52,7 +78,11 @@ function get_products_recent() {
 	}
 	return $list_view_html;
 }
-
+/*
+ * creates the html display of each of the shirts in the list items<li> view for shirts
+ * @param	array	$product	the product array that's used to build the individual list item
+ * @return	html	$output		html to be displayed
+ */
 function get_list_view_html($product) {
     
     $output = "";
@@ -66,6 +96,11 @@ function get_list_view_html($product) {
 
     return $output;
 }
+/*
+ * Builds the product catalog in array called products
+ * @param    none
+ * @return   array	An array list of all the products
+ */
 function get_products_all() {
     $products = array();
     $products[101] = array(
@@ -292,7 +327,9 @@ function get_products_all() {
             "paypal" => "Y6EQRE445MYYW",
             "sizes" => array("Small","Medium","Large","X-Large")
     );     
-
+/*
+ * This foreach adds a SKU value to each $product in the $products catalog
+ */
     foreach ($products as $product_id => $product) {
         $products[$product_id]["sku"] = $product_id;
     }
