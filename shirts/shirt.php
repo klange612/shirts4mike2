@@ -1,19 +1,23 @@
 <?php 
 require_once('../inc/config.php');
 require_once(ROOT_PATH . "inc/products.php");
-$products = get_products_all();
 
+/*
+ * check to see if id is set, calls get_product_single function for the id (sku) value
+ */
 if (isset($_GET["id"])) {
-	if (get_product($_GET["id"])) {
-		$product = get_product($_GET["id"]);
+	$product = get_products_single($_GET['id']);
 	} else {
 		echo "No shirt found";
-	}
 }
-if (!isset($product)) {
-	header("Location: " . BASE_URL . "shirts/");
-	exit();
-}
+
+/*
+ * of $product is empty, redirect to shirts/index.html
+ */
+// if (empty($product)) {
+// 	header("Location: " . BASE_URL . "shirts/");
+// 	exit();
+// }
 
 $section = "shirts";
 $pageTitle = $product["name"];
