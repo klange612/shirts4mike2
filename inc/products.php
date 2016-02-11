@@ -9,7 +9,12 @@
 function get_products_single($sku) {
 	include(ROOT_PATH . "inc/database.php");
 	try {
-		$results = $db->query("SELECT * FROM products WHERE sku = $sku"); 
+		// next 2 steps, prepare and bindparam used to prevent sql injection
+		// preapre the sql statement with ? as variable/placeholder
+		$results = $db->prepare("SELECT * FROM products WHERE sku = ?");
+		// bind the param # 1, the ? with the value of sku
+		$results->bindParam(1, $sku);
+		$results->execute(); // < executes our results query, which is an object
 	} catch (Exception $e) {
 		echo "Query error " . $e;
 		exit();
