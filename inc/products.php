@@ -19,7 +19,29 @@ function get_products_single($sku) {
 		echo "Query error " . $e;
 		exit();
 	}
-	return $results->fetch(PDO::FETCH_ASSOC);
+	$product = $results->fetch(PDO::FETCH_ASSOC);
+	
+	if ($product === false) return $product;
+	
+	$product["sizes"] = Array();
+	
+	try {
+		$results = $db->prepare("
+			SELECT size
+			FROM products_sizes ps
+			INNER JOIN sizes s on ps.size_id = s.id
+			WHERE product_sku = ?
+			ORDER by `order`");
+		$results->bindParam(1, $sku);
+		$results->execute();
+	} catch (Exception $e) {
+		echo "failed to get shirt size $e";
+	}
+	
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$product["sizes"][] = $row["size"];
+	}
+	return $product;
 }
 
 /*
@@ -39,6 +61,25 @@ function get_product($product_id) {
 // 		$product = $products[$product_id];
 // 	}
 	}
+}
+
+/*
+ * function to join the shirts to the size table
+ */
+
+function shirtSizes($sku) {
+	try {
+		$results->prepare("SELECT product_sku, size_id, size
+		FROM products_sizes
+		INNER JOIN sizes on products_sizes.size_id = sizes.id
+		WHERE product_sku = ?
+		ORDER by `order`");
+		$results->bindParam(1, $sku);
+		$results->execute();
+	} catch (Exception $e) {
+		echo "failed to get shirt size $e";
+	}
+	return $results->fetchAll(PDO::FETCH_ASSOC);
 }
 /*
  * Get the count/total # of items in the product catalog
